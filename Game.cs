@@ -20,7 +20,7 @@ namespace ConsoleGame
         private List<Entity> entities;
         private int framesPerSecond;
         private Random rand;
-
+        private int killCount;
         public int MaxRow { get; }
         public int MaxCol { get; }
         /// <summary>
@@ -29,13 +29,13 @@ namespace ConsoleGame
         /// <param name="rows">The number of rows in the game grid</param>
         /// <param name="cols">The number of columns in the game rid</param>
         /// <param name="framesPerSecond">The game's refresh rate</param>
-        public Game(int rows = 24, int cols = 48, int framesPerSecond = 60)
+        public Game(int rows = 24, int cols = 48, int framesPerSecond = 30)
         {
             GameGrid = new Grid(rows, cols);
             MaxRow = rows - 1;
             MaxCol = cols - 1;
             rand = new Random();
-
+            killCount = 0;
             entities = new List<Entity>();
             player = new Player(this);
             entities.Add(player);
@@ -74,7 +74,11 @@ namespace ConsoleGame
                     if (bulletHit) p.IsExpiring = true;
                     return bulletHit;
                 });
-                if (hit) e.IsExpiring = true;
+                if (hit)
+                {
+                    e.IsExpiring = true;
+                    killCount++;
+                }
             });
             entities.RemoveAll(e =>
             {
@@ -147,12 +151,17 @@ namespace ConsoleGame
         {
             // Use insert to ensure the projectile are first in the list (so that their
             // images are overriden)
-            Projectile bullet = new Projectile(this,
-                player.CurrentLocation.Shift(-1, 1),
-                new Point(-1, 0));
-            bullet.SetColor(ConsoleColor.Red);
-            entities.Insert(0, bullet);
+            if (killCount >= 0)
+            {
+                for (int i = 0; i < killCount / 4 + 1; i++)
+                {
+                    Projectile bullet = new Projectile(this,
+                        player.CurrentLocation.Shift(-1, 1 + i - killCount / 8),
+                        new Point(-1, 0));
+                    bullet.SetColor(ConsoleColor.Red);
+                    entities.Insert(0, bullet);
+                }
+            } 
         }
-
     }
 }

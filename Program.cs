@@ -10,7 +10,7 @@ namespace ConsoleGame
         {
             Console.OutputEncoding = System.Text.Encoding.Default;
             //Console.WriteLine(testInts?[0] == 1);
-            Console.WriteLine("Press [Spacebar] to shoot.");
+            Console.WriteLine("Press [Spacebar] to shoot and use the arrow keys to move.");
             Console.WriteLine("Press any key to start the game.");
             Console.ReadKey();
             Game game = new Game();
