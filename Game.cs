@@ -76,7 +76,7 @@ namespace ConsoleGame
                 });
                 if (hit)
                 {
-                    e.IsExpiring = true;
+                    ((Creature)e).HitPoint--;
                     killCount++;
                 }
             });
@@ -105,7 +105,7 @@ namespace ConsoleGame
         {
             for (int i = 0; i < 8; i++)
             {
-                Enemy enemy = new Enemy(this, new Point(1, 1 + i * 6));
+                Enemy enemy = new Enemy(this, new Point(1, 1 + i * 6), killCount / 4 + 1);
                 // Set a random color, excluding black
                 enemy.SetColor((ConsoleColor)rand.Next(1,16));
                 entities.Add(enemy);

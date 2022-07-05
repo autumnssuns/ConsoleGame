@@ -10,13 +10,14 @@ namespace ConsoleGame
     /// <summary>
     /// A controllable player.
     /// </summary>
-    internal class Player : Entity
+    internal class Player : Creature
     {
         /// <summary>
         /// Creates a new player object
         /// </summary>
         /// <param name="game">The game session where this player belongs</param>
-        public Player(Game game) : base(game)
+        /// <param name="hp">The hit point of the player. Defaults to 5</param>
+        public Player(Game game, int hp = 5) : base(game, hp)
         {
             Shape = new[]
             {
@@ -46,10 +47,5 @@ namespace ConsoleGame
             base.NextFrame();
             Velocity = new Point(0, 0);
         }
-
-        /// <summary>
-        /// A player can never expires
-        /// </summary>
-        public override bool IsExpiring => false;
     }
 }

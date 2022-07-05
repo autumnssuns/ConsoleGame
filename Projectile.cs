@@ -18,9 +18,6 @@ namespace ConsoleGame
             CurrentLocation = location;
             Velocity = velocity;
         }
-        public Projectile(Game game) : this(game, new Point(0,0), new Point(0,0))
-        {
-        }
 
         /// <summary>
         /// A projectiles expires when it is either out of bound, or explicitly set.

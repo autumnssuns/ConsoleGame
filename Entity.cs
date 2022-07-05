@@ -18,10 +18,14 @@ namespace ConsoleGame
         private Point currentLocation;
         private Point previousLocation;
         private bool isExpiring;
+        protected int internalCounter;
+
         /// <summary>
         /// Checks if the entity is to be deleted.
         /// </summary>
         public virtual bool IsExpiring { get => isExpiring; set => isExpiring = value; }
+
+
 
         public int Id { get; }
         /// <summary>
@@ -90,6 +94,7 @@ namespace ConsoleGame
             this.game = game;
             this.currentLocation = new Point(0, 0);
             this.previousLocation = new Point(0, 0);
+            this.internalCounter = 0;
         }
 
         /// <summary>
@@ -148,11 +153,12 @@ namespace ConsoleGame
         public virtual void NextFrame()
         {
             Point newLocation = CurrentLocation.Shift(Velocity);
-            int maxRow = game.MaxRow - Shape.Length + 1;
-            int maxCol = game.MaxCol - Shape.ToList().Select(x => x.Length).Max() + 1;
-            bool rowInBound = newLocation.Row >= 0 && newLocation.Row <= maxRow;
-            bool colInBound = newLocation.Column >= 0 && newLocation.Column <= maxCol;
+            //int maxRow = game.MaxRow - Shape.Length + 1;
+            //int maxCol = game.MaxCol - Shape.ToList().Select(x => x.Length).Max() + 1;
+            //bool rowInBound = newLocation.Row >= 0 && newLocation.Row <= maxRow;
+            //bool colInBound = newLocation.Column >= 0 && newLocation.Column <= maxCol;
             CurrentLocation = newLocation;
+            internalCounter++;
         }
 
         /// <summary>

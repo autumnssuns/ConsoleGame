@@ -7,9 +7,9 @@ using Display;
 
 namespace ConsoleGame
 {
-    internal class Enemy : Entity
+    internal class Enemy : Creature
     {
-        public Enemy(Game game, Point spawnLocation) : base(game)
+        public Enemy(Game game, Point spawnLocation, int hp = 1) : base(game, hp)
         {
             Shape = new[]
             {
